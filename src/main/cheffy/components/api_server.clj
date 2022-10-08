@@ -3,7 +3,7 @@
             [com.stuartsierra.component :as component]
             [io.pedestal.http :as http]))
 
-(defrecord ApiServer [service-map service]
+(defrecord ApiServer [service-map service database]
 
   component/Lifecycle
 
