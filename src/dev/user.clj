@@ -1,3 +1,7 @@
-(ns user)
+(ns user
+  (:require [dev :as dev]))
 
-(set! *print-namespace-maps* false)
+
+(defn reset
+  []
+  (dev/restart-dev))

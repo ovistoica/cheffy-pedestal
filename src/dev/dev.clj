@@ -1,10 +1,13 @@
 (ns dev
-  (:require [cheffy.server :as server]
+  (:require [cheffy.recipes :as recipes]
+            [cheffy.server :as server]
             [clojure.edn :as edn]
-            [io.pedestal.http :as http]
+            [cognitect.transit :as transit]
             [com.stuartsierra.component.repl :as cr]
             [datomic.client.api :as d]
-            [io.pedestal.test :as pt]))
+            [io.pedestal.http :as http]
+            [io.pedestal.test :as pt])
+  (:import (java.io ByteArrayInputStream ByteArrayOutputStream)))
 
 (defn system
   [_]
@@ -24,6 +27,26 @@
 (defn restart-dev []
   (cr/reset))
 
+(defn db
+  []
+  (d/db (-> cr/system :database :conn)))
+
+(defn api-service
+  []
+  (-> cr/system :api-server :service ::http/service-fn))
+
+(defn transit-write [obj]
+  (let [out (ByteArrayOutputStream.)
+        writer (transit/writer out :json)]
+    (transit/write writer obj)
+    (.toString out)))
+
+(defn transit-read [txt]
+  (let [in (ByteArrayInputStream. (.getBytes txt))
+        reader (transit/reader in :json)]
+    (transit/read reader)))
+
+
 (comment
   (:database cr/system)
   (:api-server cr/system)
@@ -39,42 +62,74 @@
 ;; Datomic playground
 (comment
 
-  (def db (d/db (-> cr/system :database :conn)))
-
-  (d/q '[:find ?e ?v ?display-name
-         :in $ ?account-id
-         :where
-         [?e :recipe/recipe-id ?v]
-         [?e :recipe/display-name ?display-name]
-         [?e :recipe/owner ?account-id]]
-       db 87960930222184)
-
   (d/q '[:find ?e ?id
          :where [?e :account/account-id ?id]]
-       db)
+       (db))
 
   (d/q '[:find ?e ?v
          :where
-         [?e :account/account-id ?v]] db)
+         [?e :account/account-id ?v]] (db))
 
-  (d/pull db {:eid [:account/account-id "mike@mailinator.com"]
-              :selector '[*]})
+  (d/pull (db) {:eid [:account/account-id "mike@mailinator.com"]
+                :selector '[*]})
 
-  (d/pull db {:eid [:account/account-id "mike@mailinator.com"]
-              :selector '[:account/account-id
-                          :account/display-name
-                          {:account/favorite-recipes
-                           [:recipe/recipe-id
-                            :recipe/display-name]}]})
+  (d/pull (db) {:eid [:account/account-id "mike@mailinator.com"]
+                :selector '[:account/account-id
+                            :account/display-name
+                            {:account/favorite-recipes
+                             [:recipe/recipe-id
+                              :recipe/display-name]}]})
 
-  )
+
+  (let [account-id "auth|5fbf7db6271d5e0076903601"
+        recipe-pattern
+        [:recipe/recipe-id
+         :recipe/prep-time
+         :recipe/display-name
+         :recipe/image-url
+         :recipe/public?
+         :account/_favorite-recipes
+         {:recipe/owner
+          [:account/account-id
+           :account/display-name]}
+         {:recipe/steps [:step/step-id
+                         :step/description
+                         :step/sort-order]}
+         {:recipe/ingredients [:ingredient/ingredient-id
+                               :ingredient/display-name
+                               :ingredient/amount
+                               :ingredient/measure
+                               :ingredient/sort-order]}]]
+    (mapv recipes/query-result->recipe (d/q '[:find (pull ?e pattern)
+                                              :in $ ?account-id pattern
+                                              :where
+                                              [?owner :account/account-id ?account-id]
+                                              [?e :recipe/public? false]]
+                                            (db) account-id recipe-pattern))))
+
 
 
 ;; Pedestal playground
 (comment
+  (-> (pt/response-for
+        (api-service)
+        :get "/recipes"
+        :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"})
+      :body
+      (transit-read)
+      :public)
+
+
   (pt/response-for
-    (-> cr/system :api-server :service ::http/service-fn)
-    :get
-    "/recipes")
+    (api-service)
+    :post "/recipes"
+    :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+              "Content-Type" "application/transit+json"}
+    :body (transit-write {:name "name"
+                          :public true
+                          :prep-time 30
+                          :img "https://github.com/clojure.png"}))
 
   )
+
+
