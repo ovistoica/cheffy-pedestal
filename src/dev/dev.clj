@@ -12,8 +12,6 @@
 
 (cr/set-init system)
 
-(defonce system-ref (atom nil))
-
 (defn start-dev []
   (cr/start))
 
@@ -25,15 +23,12 @@
 
 (comment
 
+
+
   (:database cr/system)
   (:api-server cr/system)
 
   (start-dev)
-  (:database cr/system)
-
-  (restart-dev)
-
   (stop-dev)
-
+  (restart-dev)
   )
-(ns dev)

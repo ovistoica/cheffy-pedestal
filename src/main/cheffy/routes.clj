@@ -12,7 +12,7 @@
    :body   "Upsert recipe"})
 (def routes
   (route/expand-routes
-    #{{:app-name :cheffy :schema :http :host "cheffy.ovistoica.com"}
+    #{{:app-name :cheffy :schema :http :host ""}
       ["/recipes" :get list-recipes :route-name :list-recipes]
       ["/recipes" :post upsert-recipe! :route-name :create-recipe!]
       ["/recipes/:recipe-id" :put upsert-recipe! :route-name :update-recipe!]}))
