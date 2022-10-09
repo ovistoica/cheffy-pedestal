@@ -1,7 +1,23 @@
 (ns cheffy.components.database
-  (:require [com.stuartsierra.component :as component]
-            [datomic.client.api :as d]
-            [datomic.dev-local :as dl]))
+  (:require
+    [clojure.edn :as edn]
+    [clojure.java.io :as io]
+    [com.stuartsierra.component :as component]
+    [datomic.client.api :as d]
+    [datomic.dev-local :as dl]))
+
+(defn ident-has-attr?
+  [db ident attr]
+  (contains? (d/pull db {:eid ident :selector '[*]}) attr))
+
+(defn load-dataset
+  [conn]
+  (let [db (d/db conn)
+        tx #(d/transact conn {:tx-data %})]
+    (when-not (ident-has-attr? db :account/account-id :db/ident)
+      (tx (-> (io/resource "cheffy/schema.edn") (slurp) (edn/read-string)))
+      (tx (-> (io/resource "cheffy/seed.edn") (slurp) (edn/read-string))))))
+
 
 (defrecord Database
   [config conn]
@@ -12,6 +28,7 @@
           client (d/client (select-keys config [:server-type :system :storage-dir]))
           _ (d/create-database client db-name)
           conn (d/connect client db-name)]
+      (load-dataset conn)
       (assoc component :conn conn)))
 
   (stop [component]

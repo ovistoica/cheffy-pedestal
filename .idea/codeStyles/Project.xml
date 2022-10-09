@@ -1,0 +1,7 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <ClojureCodeStyleSettings>
+      <option name="alignMapValues" value="false" />
+    </ClojureCodeStyleSettings>
+  </code_scheme>
+</component>

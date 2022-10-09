@@ -11,7 +11,7 @@
 (defn inject-system
   [system]
   (interceptor/interceptor
-    {:name  ::inject-system
+    {:name ::inject-system
      :enter (fn [ctx]
               (update-in ctx [:request] merge system))}))
 
@@ -43,7 +43,8 @@
     (println ";; Starting API Server")
     (let [service (-> service-map
                       (assoc ::http/routes routes/routes)
-                      (cheffy-interceptors [(inject-system {:system/database database})])
+                      (cheffy-interceptors
+                        [(inject-system {:system/database database})])
                       (create-cheffy-server)
                       (http/start))]
       (assoc component :service service)))
