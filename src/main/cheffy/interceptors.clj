@@ -9,3 +9,21 @@
               (let [conn (get-in ctx [:request :system/database :conn])
                     db (d/db conn)]
                 (update-in ctx [:request :system/database] assoc :db db)))}))
+
+(def transact-interceptor
+  (interceptor/interceptor
+    {:name ::transact-interceptor
+     :enter
+     (fn [ctx]
+       (let [conn (get-in ctx [:request :system/database :conn])
+             tx-data (get ctx :tx-data)]
+         (assoc ctx :tx-result (d/transact conn {:tx-data tx-data}))))}))
+
+(def query-interceptor
+  (interceptor/interceptor
+    {:name ::query-interceptor
+     :enter
+     (fn [ctx]
+       (println "ENtering query")
+       (when-let [q-data (:q-data ctx)]
+         (assoc ctx :q-result (d/q q-data))))}))

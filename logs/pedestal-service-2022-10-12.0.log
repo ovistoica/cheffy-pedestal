@@ -1,0 +1,295 @@
+06:55:10.902 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.util.log - Logging initialized @158051ms to org.eclipse.jetty.util.log.Slf4jLog
+06:55:10.971 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+06:55:10.985 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@616e49ba{/,null,AVAILABLE}
+06:55:10.993 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@1c3509a2{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+06:55:10.993 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - Started @158143ms
+07:00:19.955 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@1c3509a2{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+07:00:19.955 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@616e49ba{/,null,STOPPED}
+07:00:20.011 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+07:00:20.012 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@79446add{/,null,AVAILABLE}
+07:00:20.013 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@29d6e4d0{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+07:00:20.013 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - Started @467164ms
+07:01:16.831 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+07:01:16.833 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] ERROR i.p.http.impl.servlet-interceptor - {:msg "Dev interceptor caught an exception; Forwarding it as the response.", :line 314}
+clojure.lang.ExceptionInfo: java.lang.ClassCastException in Interceptor :io.pedestal.http.route/router - class clojure.lang.LazySeq cannot be cast to class clojure.lang.IFn (clojure.lang.LazySeq and clojure.lang.IFn are in unnamed module of loader 'app')
+	at io.pedestal.interceptor.chain$throwable__GT_ex_info.invokeStatic(chain.clj:35)
+	at io.pedestal.interceptor.chain$throwable__GT_ex_info.invoke(chain.clj:32)
+	at io.pedestal.interceptor.chain$try_f.invokeStatic(chain.clj:57)
+	at io.pedestal.interceptor.chain$try_f.invoke(chain.clj:44)
+	at io.pedestal.interceptor.chain$process_all_with_binding.invokeStatic(chain.clj:171)
+	at io.pedestal.interceptor.chain$process_all_with_binding.invoke(chain.clj:146)
+	at io.pedestal.interceptor.chain$process_all$fn__10701.invoke(chain.clj:188)
+	at clojure.lang.AFn.applyToHelper(AFn.java:152)
+	at clojure.lang.AFn.applyTo(AFn.java:144)
+	at clojure.core$apply.invokeStatic(core.clj:667)
+	at clojure.core$with_bindings_STAR_.invokeStatic(core.clj:1990)
+	at clojure.core$with_bindings_STAR_.doInvoke(core.clj:1990)
+	at clojure.lang.RestFn.invoke(RestFn.java:425)
+	at io.pedestal.interceptor.chain$process_all.invokeStatic(chain.clj:186)
+	at io.pedestal.interceptor.chain$process_all.invoke(chain.clj:182)
+	at io.pedestal.interceptor.chain$enter_all.invokeStatic(chain.clj:235)
+	at io.pedestal.interceptor.chain$enter_all.invoke(chain.clj:229)
+	at io.pedestal.interceptor.chain$execute.invokeStatic(chain.clj:379)
+	at io.pedestal.interceptor.chain$execute.invoke(chain.clj:352)
+	at io.pedestal.interceptor.chain$execute.invokeStatic(chain.clj:389)
+	at io.pedestal.interceptor.chain$execute.invoke(chain.clj:352)
+	at io.pedestal.http.impl.servlet_interceptor$interceptor_service_fn$fn__15095.invoke(servlet_interceptor.clj:351)
+	at io.pedestal.http.servlet.FnServlet.service(servlet.clj:28)
+	at io.pedestal.test$servlet_response_for.invokeStatic(test.clj:242)
+	at io.pedestal.test$servlet_response_for.doInvoke(test.clj:232)
+	at clojure.lang.RestFn.applyTo(RestFn.java:146)
+	at clojure.core$apply.invokeStatic(core.clj:673)
+	at clojure.core$apply.invoke(core.clj:662)
+	at io.pedestal.test$raw_response_for.invokeStatic(test.clj:261)
+	at io.pedestal.test$raw_response_for.doInvoke(test.clj:249)
+	at clojure.lang.RestFn.applyTo(RestFn.java:146)
+	at clojure.core$apply.invokeStatic(core.clj:673)
+	at clojure.core$apply.invoke(core.clj:662)
+	at io.pedestal.test$response_for.invokeStatic(test.clj:283)
+	at io.pedestal.test$response_for.doInvoke(test.clj:271)
+	at clojure.lang.RestFn.invoke(RestFn.java:494)
+	at dev$eval19443.invokeStatic(dev.clj:100)
+	at dev$eval19443.invoke(dev.clj:100)
+	at clojure.lang.Compiler.eval(Compiler.java:7194)
+	at clojure.lang.Compiler.eval(Compiler.java:7149)
+	at clojure.core$eval.invokeStatic(core.clj:3215)
+	at clojure.core$eval.invoke(core.clj:3211)
+	at nrepl.middleware.interruptible_eval$evaluate$fn__17981$fn__17982.invoke(interruptible_eval.clj:87)
+	at clojure.lang.AFn.applyToHelper(AFn.java:152)
+	at clojure.lang.AFn.applyTo(AFn.java:144)
+	at clojure.core$apply.invokeStatic(core.clj:667)
+	at clojure.core$with_bindings_STAR_.invokeStatic(core.clj:1990)
+	at clojure.core$with_bindings_STAR_.doInvoke(core.clj:1990)
+	at clojure.lang.RestFn.invoke(RestFn.java:425)
+	at nrepl.middleware.interruptible_eval$evaluate$fn__17981.invoke(interruptible_eval.clj:87)
+	at clojure.main$repl$read_eval_print__9206$fn__9209.invoke(main.clj:437)
+	at clojure.main$repl$read_eval_print__9206.invoke(main.clj:437)
+	at clojure.main$repl$fn__9215.invoke(main.clj:458)
+	at clojure.main$repl.invokeStatic(main.clj:458)
+	at clojure.main$repl.doInvoke(main.clj:368)
+	at clojure.lang.RestFn.invoke(RestFn.java:1523)
+	at nrepl.middleware.interruptible_eval$evaluate.invokeStatic(interruptible_eval.clj:84)
+	at nrepl.middleware.interruptible_eval$evaluate.invoke(interruptible_eval.clj:56)
+	at nrepl.middleware.interruptible_eval$interruptible_eval$fn__18012$fn__18016.invoke(interruptible_eval.clj:152)
+	at clojure.lang.AFn.run(AFn.java:22)
+	at nrepl.middleware.session$session_exec$main_loop__18080$fn__18084.invoke(session.clj:202)
+	at nrepl.middleware.session$session_exec$main_loop__18080.invoke(session.clj:201)
+	at clojure.lang.AFn.run(AFn.java:22)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: java.lang.ClassCastException: class clojure.lang.LazySeq cannot be cast to class clojure.lang.IFn (clojure.lang.LazySeq and clojure.lang.IFn are in unnamed module of loader 'app')
+	at cheffy.components.api_server$cheffy_routes$fn__19361.invoke(api_server.clj:14)
+	at io.pedestal.http.route$eval11828$fn__11829$fn__11830.invoke(route.clj:470)
+	at io.pedestal.interceptor.chain$try_f.invokeStatic(chain.clj:54)
+	... 61 common frames omitted
+07:01:42.064 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@29d6e4d0{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+07:01:42.064 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@79446add{/,null,STOPPED}
+07:01:42.116 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+07:01:42.117 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@6aef46f8{/,null,AVAILABLE}
+07:01:42.118 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@122505cb{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+07:01:42.118 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - Started @549270ms
+07:01:45.089 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+07:01:45.089 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] ERROR i.p.http.impl.servlet-interceptor - {:msg "Dev interceptor caught an exception; Forwarding it as the response.", :line 314}
+clojure.lang.ExceptionInfo: java.lang.ClassCastException in Interceptor :io.pedestal.http.route/router - class clojure.lang.LazySeq cannot be cast to class clojure.lang.IFn (clojure.lang.LazySeq and clojure.lang.IFn are in unnamed module of loader 'app')
+	at io.pedestal.interceptor.chain$throwable__GT_ex_info.invokeStatic(chain.clj:35)
+	at io.pedestal.interceptor.chain$throwable__GT_ex_info.invoke(chain.clj:32)
+	at io.pedestal.interceptor.chain$try_f.invokeStatic(chain.clj:57)
+	at io.pedestal.interceptor.chain$try_f.invoke(chain.clj:44)
+	at io.pedestal.interceptor.chain$process_all_with_binding.invokeStatic(chain.clj:171)
+	at io.pedestal.interceptor.chain$process_all_with_binding.invoke(chain.clj:146)
+	at io.pedestal.interceptor.chain$process_all$fn__10701.invoke(chain.clj:188)
+	at clojure.lang.AFn.applyToHelper(AFn.java:152)
+	at clojure.lang.AFn.applyTo(AFn.java:144)
+	at clojure.core$apply.invokeStatic(core.clj:667)
+	at clojure.core$with_bindings_STAR_.invokeStatic(core.clj:1990)
+	at clojure.core$with_bindings_STAR_.doInvoke(core.clj:1990)
+	at clojure.lang.RestFn.invoke(RestFn.java:425)
+	at io.pedestal.interceptor.chain$process_all.invokeStatic(chain.clj:186)
+	at io.pedestal.interceptor.chain$process_all.invoke(chain.clj:182)
+	at io.pedestal.interceptor.chain$enter_all.invokeStatic(chain.clj:235)
+	at io.pedestal.interceptor.chain$enter_all.invoke(chain.clj:229)
+	at io.pedestal.interceptor.chain$execute.invokeStatic(chain.clj:379)
+	at io.pedestal.interceptor.chain$execute.invoke(chain.clj:352)
+	at io.pedestal.interceptor.chain$execute.invokeStatic(chain.clj:389)
+	at io.pedestal.interceptor.chain$execute.invoke(chain.clj:352)
+	at io.pedestal.http.impl.servlet_interceptor$interceptor_service_fn$fn__15095.invoke(servlet_interceptor.clj:351)
+	at io.pedestal.http.servlet.FnServlet.service(servlet.clj:28)
+	at io.pedestal.test$servlet_response_for.invokeStatic(test.clj:242)
+	at io.pedestal.test$servlet_response_for.doInvoke(test.clj:232)
+	at clojure.lang.RestFn.applyTo(RestFn.java:146)
+	at clojure.core$apply.invokeStatic(core.clj:673)
+	at clojure.core$apply.invoke(core.clj:662)
+	at io.pedestal.test$raw_response_for.invokeStatic(test.clj:261)
+	at io.pedestal.test$raw_response_for.doInvoke(test.clj:249)
+	at clojure.lang.RestFn.applyTo(RestFn.java:146)
+	at clojure.core$apply.invokeStatic(core.clj:673)
+	at clojure.core$apply.invoke(core.clj:662)
+	at io.pedestal.test$response_for.invokeStatic(test.clj:283)
+	at io.pedestal.test$response_for.doInvoke(test.clj:271)
+	at clojure.lang.RestFn.invoke(RestFn.java:494)
+	at dev$eval19604.invokeStatic(dev.clj:100)
+	at dev$eval19604.invoke(dev.clj:100)
+	at clojure.lang.Compiler.eval(Compiler.java:7194)
+	at clojure.lang.Compiler.eval(Compiler.java:7149)
+	at clojure.core$eval.invokeStatic(core.clj:3215)
+	at clojure.core$eval.invoke(core.clj:3211)
+	at nrepl.middleware.interruptible_eval$evaluate$fn__17981$fn__17982.invoke(interruptible_eval.clj:87)
+	at clojure.lang.AFn.applyToHelper(AFn.java:152)
+	at clojure.lang.AFn.applyTo(AFn.java:144)
+	at clojure.core$apply.invokeStatic(core.clj:667)
+	at clojure.core$with_bindings_STAR_.invokeStatic(core.clj:1990)
+	at clojure.core$with_bindings_STAR_.doInvoke(core.clj:1990)
+	at clojure.lang.RestFn.invoke(RestFn.java:425)
+	at nrepl.middleware.interruptible_eval$evaluate$fn__17981.invoke(interruptible_eval.clj:87)
+	at clojure.main$repl$read_eval_print__9206$fn__9209.invoke(main.clj:437)
+	at clojure.main$repl$read_eval_print__9206.invoke(main.clj:437)
+	at clojure.main$repl$fn__9215.invoke(main.clj:458)
+	at clojure.main$repl.invokeStatic(main.clj:458)
+	at clojure.main$repl.doInvoke(main.clj:368)
+	at clojure.lang.RestFn.invoke(RestFn.java:1523)
+	at nrepl.middleware.interruptible_eval$evaluate.invokeStatic(interruptible_eval.clj:84)
+	at nrepl.middleware.interruptible_eval$evaluate.invoke(interruptible_eval.clj:56)
+	at nrepl.middleware.interruptible_eval$interruptible_eval$fn__18012$fn__18016.invoke(interruptible_eval.clj:152)
+	at clojure.lang.AFn.run(AFn.java:22)
+	at nrepl.middleware.session$session_exec$main_loop__18080$fn__18084.invoke(session.clj:202)
+	at nrepl.middleware.session$session_exec$main_loop__18080.invoke(session.clj:201)
+	at clojure.lang.AFn.run(AFn.java:22)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: java.lang.ClassCastException: class clojure.lang.LazySeq cannot be cast to class clojure.lang.IFn (clojure.lang.LazySeq and clojure.lang.IFn are in unnamed module of loader 'app')
+	at cheffy.components.api_server$cheffy_routes$fn__19525.invoke(api_server.clj:14)
+	at io.pedestal.http.route$eval11828$fn__11829$fn__11830.invoke(route.clj:470)
+	at io.pedestal.interceptor.chain$try_f.invokeStatic(chain.clj:54)
+	... 61 common frames omitted
+07:02:43.652 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@122505cb{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+07:02:43.652 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@6aef46f8{/,null,STOPPED}
+07:02:43.700 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+07:02:43.701 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@2081c10b{/,null,AVAILABLE}
+07:02:43.702 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@6dead456{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+07:02:43.702 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - Started @610854ms
+07:02:48.401 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+07:03:07.527 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+07:03:16.435 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:02:55.291 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:02:55.307 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:02:55.312 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:02:55.317 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/435a565b-f1d5-44e9-ad7f-f3c1a08c5efe", :line 80}
+08:03:13.637 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:03:13.643 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:03:13.647 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:03:13.650 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/308a0828-4121-4742-a5fd-0aa3423f02f5", :line 80}
+08:03:13.652 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/308a0828-4121-4742-a5fd-0aa3423f02f5", :line 80}
+08:03:13.655 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/308a0828-4121-4742-a5fd-0aa3423f02f5", :line 80}
+08:04:57.470 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:04:57.476 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:04:57.481 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:04:57.484 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/e7c6984e-282d-46b8-955e-742d2ae5b244", :line 80}
+08:04:57.485 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/e7c6984e-282d-46b8-955e-742d2ae5b244", :line 80}
+08:04:57.487 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/e7c6984e-282d-46b8-955e-742d2ae5b244", :line 80}
+08:06:18.057 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:06:18.064 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:06:18.068 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:06:18.070 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/3eb80a1d-83b8-4763-833d-81c71c0b2481", :line 80}
+08:06:18.072 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/3eb80a1d-83b8-4763-833d-81c71c0b2481", :line 80}
+08:06:18.075 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/3eb80a1d-83b8-4763-833d-81c71c0b2481", :line 80}
+08:06:43.716 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:06:43.722 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:06:43.726 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:06:43.729 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/170bd459-7d16-41c3-9193-b6cdb7db0400", :line 80}
+08:06:43.731 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/170bd459-7d16-41c3-9193-b6cdb7db0400", :line 80}
+08:06:43.732 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/170bd459-7d16-41c3-9193-b6cdb7db0400", :line 80}
+08:07:10.433 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:07:10.439 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:07:10.442 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:07:10.445 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/0de88cba-39bb-4ced-92c6-ca0f68e63411", :line 80}
+08:07:10.447 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/0de88cba-39bb-4ced-92c6-ca0f68e63411", :line 80}
+08:07:10.449 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/0de88cba-39bb-4ced-92c6-ca0f68e63411", :line 80}
+08:07:43.564 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:07:43.569 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:07:43.573 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:07:43.575 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/3e32c764-539f-42f8-904b-f93dc2549960", :line 80}
+08:07:43.576 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/3e32c764-539f-42f8-904b-f93dc2549960", :line 80}
+08:07:43.578 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/3e32c764-539f-42f8-904b-f93dc2549960", :line 80}
+08:07:49.514 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:07:49.521 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:07:49.524 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:07:49.526 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/090b1507-cf79-476e-a966-b93609aea3b6", :line 80}
+08:07:49.527 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "PUT /recipes/090b1507-cf79-476e-a966-b93609aea3b6", :line 80}
+08:07:49.529 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "DELETE /recipes/090b1507-cf79-476e-a966-b93609aea3b6", :line 80}
+08:10:09.055 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:11:56.828 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/a1995316-80ea-4a98-939d-7c6295e4bb46", :line 80}
+08:14:10.838 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  io.pedestal.http - {:msg "GET /recipes/a1995316-80ea-4a98-939d-7c6295e4bb46", :line 80}
+08:14:19.629 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@6dead456{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+08:14:19.629 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@2081c10b{/,null,STOPPED}
+08:14:19.739 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+08:14:19.740 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@48321b7f{/,null,AVAILABLE}
+08:14:19.741 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@4bbb2f3d{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+08:14:19.741 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - Started @4742935ms
+08:16:02.589 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@4bbb2f3d{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+08:16:02.590 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@48321b7f{/,null,STOPPED}
+08:16:02.600 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+08:16:02.601 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@2d467568{/,null,AVAILABLE}
+08:16:02.603 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@25740cae{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+08:16:02.603 [nREPL-session-a75932e9-0062-4a81-b6d1-8de02de86301] INFO  org.eclipse.jetty.server.Server - Started @4845797ms
+08:16:28.315 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  org.eclipse.jetty.util.log - Logging initialized @6560ms to org.eclipse.jetty.util.log.Slf4jLog
+08:16:28.400 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  org.eclipse.jetty.server.Server - jetty-9.4.44.v20210927; built: 2021-09-27T23:02:44.612Z; git: 8da83308eeca865e495e53ef315a249d63ba9332; jvm 19+36-2238
+08:16:28.416 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@b87407e{/,null,AVAILABLE}
+08:16:28.424 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@1c88af6c{HTTP/1.1, (http/1.1, h2c)}{localhost:3000}
+08:16:28.424 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  org.eclipse.jetty.server.Server - Started @6670ms
+08:16:35.765 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/a1995316-80ea-4a98-939d-7c6295e4bb46", :line 80}
+08:17:02.025 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/a1995316-80ea-4a98-939d-7c6295e4bb46", :line 80}
+08:17:12.413 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:17:12.441 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:17:12.448 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:17:12.454 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/6df674e1-2984-4bf9-8505-b8cf006f8347", :line 80}
+08:17:12.458 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/6df674e1-2984-4bf9-8505-b8cf006f8347", :line 80}
+08:17:12.461 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/6df674e1-2984-4bf9-8505-b8cf006f8347", :line 80}
+08:18:03.480 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:18:03.488 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:18:03.493 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:18:03.497 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/58b947c6-fbd4-471b-a29a-839dd71cb73f", :line 80}
+08:18:03.502 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/58b947c6-fbd4-471b-a29a-839dd71cb73f", :line 80}
+08:18:03.505 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/58b947c6-fbd4-471b-a29a-839dd71cb73f", :line 80}
+08:19:09.547 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:19:09.554 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:19:09.559 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:19:09.562 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/d1d7826f-088f-4a3c-a85f-461b27195085", :line 80}
+08:19:09.566 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/d1d7826f-088f-4a3c-a85f-461b27195085", :line 80}
+08:19:09.569 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/d1d7826f-088f-4a3c-a85f-461b27195085", :line 80}
+08:19:35.936 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:19:35.941 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:19:35.956 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:19:35.958 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/30c1f8c1-573f-43f6-9d65-89ed93d3021c", :line 80}
+08:19:35.963 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/30c1f8c1-573f-43f6-9d65-89ed93d3021c", :line 80}
+08:19:35.965 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/30c1f8c1-573f-43f6-9d65-89ed93d3021c", :line 80}
+08:19:55.299 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:19:55.304 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:19:55.308 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:19:55.311 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/c35d8ea9-d4cc-46dd-9833-5a09ba746f21", :line 80}
+08:19:55.315 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/c35d8ea9-d4cc-46dd-9833-5a09ba746f21", :line 80}
+08:19:55.317 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/c35d8ea9-d4cc-46dd-9833-5a09ba746f21", :line 80}
+08:21:35.029 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:21:35.036 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:21:35.040 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:21:35.043 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/cd3e449e-5a28-4275-8c71-4d6b13a7536e", :line 80}
+08:21:35.047 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/cd3e449e-5a28-4275-8c71-4d6b13a7536e", :line 80}
+08:21:35.049 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/cd3e449e-5a28-4275-8c71-4d6b13a7536e", :line 80}
+08:31:07.372 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:31:07.398 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:31:07.407 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:31:07.411 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/8303d089-1e99-49be-b8cc-0b971f07f6ed", :line 80}
+08:31:07.416 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/8303d089-1e99-49be-b8cc-0b971f07f6ed", :line 80}
+08:31:07.422 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /steps", :line 80}
+08:31:07.425 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/8303d089-1e99-49be-b8cc-0b971f07f6ed", :line 80}
+08:32:34.753 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:32:34.760 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:32:34.764 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:32:34.767 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/ac3fd6ca-35ab-4065-b30c-69ffddbe1033", :line 80}
+08:32:34.770 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/ac3fd6ca-35ab-4065-b30c-69ffddbe1033", :line 80}
+08:32:34.773 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /steps", :line 80}
+08:32:34.776 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/ac3fd6ca-35ab-4065-b30c-69ffddbe1033", :line 80}
+08:34:05.900 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:34:05.906 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes", :line 80}
+08:34:05.910 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /recipes", :line 80}
+08:34:05.913 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "GET /recipes/736a667e-fb07-47ae-81a8-9c8b282dc50c", :line 80}
+08:34:05.916 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "PUT /recipes/736a667e-fb07-47ae-81a8-9c8b282dc50c", :line 80}
+08:34:05.919 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "POST /steps", :line 80}
+08:34:05.921 [nREPL-session-48ab5031-2a32-4aef-8ce0-89d0a90a6219] INFO  io.pedestal.http - {:msg "DELETE /recipes/736a667e-fb07-47ae-81a8-9c8b282dc50c", :line 80}

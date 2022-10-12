@@ -8,6 +8,13 @@
   [service-map]
   (= :dev (:env service-map)))
 
+(defn cheffy-routes
+  [service-map]
+  (let [routes (if (dev? service-map)
+                 #(routes/routes)
+                 (routes/routes))]
+    (assoc service-map ::http/routes routes)))
+
 (defn inject-system
   [system]
   (interceptor/interceptor
@@ -42,7 +49,7 @@
   (start [component]
     (println ";; Starting API Server")
     (let [service (-> service-map
-                      (assoc ::http/routes routes/routes)
+                      (cheffy-routes)
                       (cheffy-interceptors
                         [(inject-system {:system/database database})])
                       (create-cheffy-server)
