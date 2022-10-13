@@ -26,25 +26,28 @@
 (defn restart-dev []
   (cr/reset))
 
+(defn datomic-conn
+  []
+  (-> cr/system :database :conn))
+
 (defn db
   []
-  (d/db (-> cr/system :database :conn)))
+  (d/db (datomic-conn)))
 
 (defn api-service
   []
   (-> cr/system :api-server :service ::http/service-fn))
 
-(comment
-  (:database cr/system)
-  (:api-server cr/system)
+(comment (:database cr/system)
+         (:api-server cr/system)
 
-  (start-dev)
+         (start-dev)
 
-  (stop-dev)
+         (stop-dev)
 
-  (restart-dev)
+         (restart-dev)
 
-  )
+         )
 
 ;; Datomic playground
 (comment
@@ -67,6 +70,50 @@
                              [:recipe/recipe-id
                               :recipe/display-name]}]})
 
+  (def conversation-pattern [:conversation/conversation-id
+                             {:conversation/messages
+                              [:message/message-id
+                               :message/body
+                               {:message/owner
+                                [:account/account-id
+                                 :account/display-name]}]}])
+
+  (d/q '[:find (pull ?c pattern)
+         :in $ ?account-id pattern
+         :where
+         [?a :account/account-id ?account-id]
+         [?c :conversation/participants ?a]]
+       (db) "auth|5fbf7db6271d5e0076903601" conversation-pattern)
+
+  (let [conversation-id (random-uuid)
+        message-id (random-uuid)
+        from "auth|5fbf7db6271d5e0076903601"
+        to "mike@mailinator.com"
+        message-body "message body"]
+    (d/transact (datomic-conn)
+                {:tx-data [{:conversation/conversation-id conversation-id
+                            :conversation/participants (mapv #(vector :account/account-id %) [to from])
+                            :conversation/messages (str message-id)}
+                           {:db/id (str message-id)
+                            :message/message-id message-id
+                            :message/owner [:account/account-id from]
+                            :message/body message-body
+                            :message/read-by [[:account/account-id to]]
+                            :message/created-at (java.util.Date.)}
+                           ]}))
+
+
+  (let [conv-id #uuid"8908e487-24fd-49c5-9011-2370acda533d"
+        message-pattern [:message/message-id
+                         :message/body
+                         :message/created-at
+                         {:message/owner [:account/account-id :account/display-name]}]]
+        (d/q '[:find (pull ?m pattern)
+               :in $ ?conversation-id pattern
+               :where
+               [?e :conversation/conversation-id ?conversation-id]
+               [?e :conversation/messages ?m]]
+             (db) conv-id message-pattern))
 
   (let [account-id "auth|5fbf7db6271d5e0076903601"
         recipe-pattern
@@ -120,6 +167,13 @@
                             :public true
                             :prep-time 30
                             :img "https://github.com/clojure.png"}))
+
+  (let [c #uuid"8908e487-24fd-49c5-9011-2370acda533d"]
+    (pt/response-for
+     (api-service)
+     :get (str "/conversations/" c)
+     :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+               "Content-Type" "application/transit+json"}))
 
   )
 

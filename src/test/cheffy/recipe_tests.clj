@@ -1,19 +1,13 @@
 (ns cheffy.recipe-tests
   (:require [cheffy.utils :as u]
             [clojure.test :refer :all]
-            [com.stuartsierra.component.repl :as cr]
-            [io.pedestal.http :as http]
+            [cheffy.test-system :refer [api-service]]
             [io.pedestal.test :as pt]))
 
-(defn api-service
-  []
-  (-> cr/system
-      :api-server
-      :service
-      ::http/service-fn))
 
 (defonce recipe-id (atom nil))
 (defonce step-id (atom nil))
+(defonce ingredient-id (atom nil))
 
 (deftest recipe-tests
   (let [new-recipe {:name "name"
@@ -97,10 +91,73 @@
                   :body (u/transit-write {:recipe-id @recipe-id
                                           :description "new step"
                                           :sort-order 1}))
-                (update :body u/transit-read))
-            ]
+                (update :body u/transit-read))]
         (reset! step-id (:step-id body))
         (is (= 201 status))))
+
+
+    (testing "update-step"
+      (let [{:keys [status]}
+            (pt/response-for
+              (api-service)
+              :put (str "/steps/" @step-id)
+              :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+                        "Content-Type" "application/transit+json"}
+              :body (u/transit-write {:recipe-id @recipe-id
+                                      :description "new step updated"
+                                      :sort-order 1}))]
+        (is (= 204 status))))
+
+    (testing "delete-step"
+      (let [{:keys [status]}
+            (pt/response-for
+              (api-service)
+              :delete (str "/steps/" @step-id)
+              :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+                        "Content-Type" "application/transit+json"})]
+        (is (= 204 status))
+        (reset! step-id nil)))
+
+    (testing "create-ingredient"
+      (let [{:keys [status body]}
+            (-> (pt/response-for
+                  (api-service)
+                  :post "/ingredients"
+                  :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+                            "Content-Type" "application/transit+json"}
+                  :body (u/transit-write {:recipe-id @recipe-id
+                                          :amount 4
+                                          :measure "cup"
+                                          :display-name "sugar"
+                                          :sort-order 1}))
+                (update :body u/transit-read))]
+        (reset! ingredient-id (:ingredient-id body))
+        (is (= 201 status))))
+
+
+    (testing "update-ingredient"
+      (let [{:keys [status]}
+            (pt/response-for
+              (api-service)
+              :put (str "/ingredients/" @ingredient-id)
+              :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+                        "Content-Type" "application/transit+json"}
+              :body (u/transit-write {:recipe-id @recipe-id
+                                      :amount 5
+                                      :measure "cup"
+                                      :display-name "sugar updated"
+                                      :sort-order 1}))]
+        (is (= 204 status))))
+
+    (testing "delete-ingredient"
+      (let [{:keys [status]}
+            (pt/response-for
+              (api-service)
+              :delete (str "/ingredients/" @ingredient-id)
+              :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+                        "Content-Type" "application/transit+json"})]
+        (is (= 204 status))
+        (reset! ingredient-id nil)))
 
     (testing "delete-recipe"
       (let [{:keys [status]}
@@ -109,4 +166,5 @@
               :delete (str "/recipes/" @recipe-id)
               :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
                         "Content-Type" "application/transit+json"})]
-        (is (= 204 status))))))
+        (is (= 204 status))
+        (reset! recipe-id nil)))))

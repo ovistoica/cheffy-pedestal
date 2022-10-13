@@ -94,7 +94,6 @@
     {:name :find-recipe-by-id-interceptor
      :enter
      (fn [ctx]
-       (println "Entering find-by-id")
        (let [db (get-in ctx [:request :system/database :db])
              recipe-id (parse-uuid (get-in ctx [:request :path-params :recipe-id]))]
          (assoc ctx :q-data {:query '[:find (pull ?e pattern)
@@ -103,7 +102,6 @@
                              :args [db recipe-id recipe-pattern]})))
      :leave
      (fn [ctx]
-       (println "Leaving find-by-id")
        (let [q-result (get ctx :q-result)
              recipe-id (-> ctx :q-data :args (second))]
          (if (seq q-result)
@@ -136,9 +134,8 @@
     {:name ::retract-recipe-interceptor
      :enter (fn [ctx]
               (let [recipe-id (parse-uuid (get-in ctx [:request :path-params :recipe-id]))]
-                (assoc ctx :tx-data [[:db/retractEntity [:recipe/recipe-id recipe-id]]])))
+               (assoc ctx :tx-data [[:db/retractEntity [:recipe/recipe-id recipe-id]]])))
      :leave (fn [ctx]
-              (println "Leaving retract")
               (assoc ctx :response (rr/status 204)))}))
 
 (def delete-recipe

@@ -24,6 +24,5 @@
     {:name ::query-interceptor
      :enter
      (fn [ctx]
-       (println "ENtering query")
        (when-let [q-data (:q-data ctx)]
          (assoc ctx :q-result (d/q q-data))))}))
