@@ -11,9 +11,9 @@
 (defn system
   [_]
   (-> "src/config/cheffy/development.edn"
-      (slurp)
-      (edn/read-string)
-      (server/create-system)))
+    (slurp)
+    (edn/read-string)
+    (server/create-system)))
 
 (cr/set-init system)
 
@@ -38,23 +38,64 @@
   []
   (-> cr/system :api-server :service ::http/service-fn))
 
+(defn db-connection []
+  (-> cr/system :database :conn))
+
+
 (comment (:database cr/system)
-         (:api-server cr/system)
+  (:api-server cr/system)
 
-         (start-dev)
+  (start-dev)
 
-         (stop-dev)
+  (stop-dev)
 
-         (restart-dev)
+  (restart-dev)
 
-         )
+  )
+
 
 ;; Datomic playground
 (comment
 
+  (require '[cognitect.aws.client.api :as aws])
+
+  (def cognito-idp (aws/client {:api :cognito-idp}))
+
+  (aws/doc cognito-idp :SignUp)
+
+  (aws/validate-requests cognito-idp true)
+
+  (aws/invoke cognito-idp
+    {:op :SignUp
+     :request {:ClientId "42rpelce3vkk4fp69ahmqgcj1g"
+               :Username "ovidiu.stoica1094+aws@gmail.com"
+               :Password "Pa$$w0rd"
+               :SecretHash (calculate-secret-hash {:client-id "client-id"
+                                                   :client-secret "client-secret"
+                                                   :username "username"})}})
+
+
+  ; Get messages read by account
+  (let [account-id "auth|5fbf7db6271d5e0076903601"
+        conversation-id #uuid"8d4ab926-d5cc-483d-9af0-19627ed468eb"]
+    (->> (d/q '[:find ?m
+                :in $ ?account-id ?conversation-id
+                :where
+                [?a :account/account-id ?account-id]
+                [?e :conversation/conversation-id ?conversation-id]
+                [?e :conversation/messages ?m]
+                [?c :conversation/messages ?m]
+                (not [?m :message/read-by ?a])]
+           (db) account-id conversation-id)
+      (map first)))
+
+  (d/transact (db-connection)
+    {:tx-data [[:db/add 83562883711094
+                :message/read-by [:account/account-id "auth|5fbf7db6271d5e0076903601"]]]})
+
   (d/q '[:find ?e ?id
          :where [?e :account/account-id ?id]]
-       (db))
+    (db))
 
   (d/q '[:find ?e ?v
          :where
@@ -83,7 +124,7 @@
          :where
          [?a :account/account-id ?account-id]
          [?c :conversation/participants ?a]]
-       (db) "auth|5fbf7db6271d5e0076903601" conversation-pattern)
+    (db) "auth|5fbf7db6271d5e0076903601" conversation-pattern)
 
   (let [conversation-id (random-uuid)
         message-id (random-uuid)
@@ -91,16 +132,16 @@
         to "mike@mailinator.com"
         message-body "message body"]
     (d/transact (datomic-conn)
-                {:tx-data [{:conversation/conversation-id conversation-id
-                            :conversation/participants (mapv #(vector :account/account-id %) [to from])
-                            :conversation/messages (str message-id)}
-                           {:db/id (str message-id)
-                            :message/message-id message-id
-                            :message/owner [:account/account-id from]
-                            :message/body message-body
-                            :message/read-by [[:account/account-id to]]
-                            :message/created-at (java.util.Date.)}
-                           ]}))
+      {:tx-data [{:conversation/conversation-id conversation-id
+                  :conversation/participants (mapv #(vector :account/account-id %) [to from])
+                  :conversation/messages (str message-id)}
+                 {:db/id (str message-id)
+                  :message/message-id message-id
+                  :message/owner [:account/account-id from]
+                  :message/body message-body
+                  :message/read-by [[:account/account-id to]]
+                  :message/created-at (java.util.Date.)}
+                 ]}))
 
 
   (let [conv-id #uuid"8908e487-24fd-49c5-9011-2370acda533d"
@@ -108,12 +149,12 @@
                          :message/body
                          :message/created-at
                          {:message/owner [:account/account-id :account/display-name]}]]
-        (d/q '[:find (pull ?m pattern)
-               :in $ ?conversation-id pattern
-               :where
-               [?e :conversation/conversation-id ?conversation-id]
-               [?e :conversation/messages ?m]]
-             (db) conv-id message-pattern))
+    (d/q '[:find (pull ?m pattern)
+           :in $ ?conversation-id pattern
+           :where
+           [?e :conversation/conversation-id ?conversation-id]
+           [?e :conversation/messages ?m]]
+      (db) conv-id message-pattern))
 
   (let [account-id "auth|5fbf7db6271d5e0076903601"
         recipe-pattern
@@ -139,7 +180,7 @@
                                               :where
                                               [?owner :account/account-id ?account-id]
                                               [?e :recipe/public? false]]
-                                            (db) account-id recipe-pattern))))
+                                         (db) account-id recipe-pattern))))
 
 
 
@@ -170,10 +211,10 @@
 
   (let [c #uuid"8908e487-24fd-49c5-9011-2370acda533d"]
     (pt/response-for
-     (api-service)
-     :get (str "/conversations/" c)
-     :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
-               "Content-Type" "application/transit+json"}))
+      (api-service)
+      :get (str "/conversations/" c)
+      :headers {"Authorization" "auth|5fbf7db6271d5e0076903601"
+                "Content-Type" "application/transit+json"}))
 
   )
 

@@ -1,6 +1,7 @@
 (ns cheffy.conversations
   (:require
     [cheffy.interceptors :as interceptors]
+    [datomic.client.api :as d]
     [io.pedestal.http :as http]
     [io.pedestal.http.body-params :as bp]
     [io.pedestal.interceptor :as interceptor]
@@ -19,6 +20,20 @@
                       :message/body
                       :message/created-at
                       {:message/owner [:account/account-id :account/display-name]}])
+
+(defn find-unread-messages
+  "Returns a list of unread message ids"
+  [{:keys [db]} {:keys [account-id conversation-id]}]
+  (->> (d/q '[:find ?m
+              :in $ ?account-id ?conversation-id
+              :where
+              [?a :account/account-id ?account-id]
+              [?e :conversation/conversation-id ?conversation-id]
+              [?e :conversation/messages ?m]
+              [?c :conversation/messages ?m]
+              (not [?m :message/read-by ?a])]
+            db account-id conversation-id)
+       (map first)))
 
 
 (def find-conversations-by-account-id-interceptor
@@ -101,3 +116,28 @@
    interceptors/db-interceptor
    find-messages-by-conversation-id-interceptor
    interceptors/query-interceptor])
+
+(def read-messages-interceptor
+  (interceptor/interceptor
+    {:name ::read-messages-interceptor
+     :enter (fn [{:keys [request] :as ctx}]
+              (let [db (get-in request [:system/database :db])
+                    conv-id (parse-uuid (get-in request [:path-params :conversation-id]))
+                    account-id (get-in request [:headers "authorization"])
+                    unread-messages (find-unread-messages
+                                      {:db db}
+                                      {:account-id account-id
+                                       :conversation-id conv-id})]
+                (if (seq unread-messages)
+                  (let [tx-data (for [message unread-messages]
+                                  [:db/add message :message/read-by [:account/account-id account-id]])]
+                    (assoc ctx :tx-data tx-data))
+                  ctx)))
+     :leave (fn [ctx]
+              (assoc ctx :response (rr/status 204)))}))
+
+
+(def clear-notifications
+  [interceptors/db-interceptor
+   read-messages-interceptor
+   interceptors/transact-interceptor])

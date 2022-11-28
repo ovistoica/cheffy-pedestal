@@ -26,4 +26,5 @@
       ["/conversations" :post conversations/create-conversation :route-name :create-message-without-conversation]
       ["/conversations/:conversation-id" :post conversations/create-conversation :route-name :create-message-with-conversation]
       ["/conversations/:conversation-id" :get conversations/list-messages :route-name :list-messages]
+      ["/conversations/:conversation-id" :delete conversations/clear-notifications :route-name :clear-notifications]
       }))

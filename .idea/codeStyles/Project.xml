@@ -2,6 +2,7 @@
   <code_scheme name="Project" version="173">
     <ClojureCodeStyleSettings>
       <option name="alignMapValues" value="false" />
+      <option name="defaultOnlyIndent" value="true" />
     </ClojureCodeStyleSettings>
   </code_scheme>
 </component>

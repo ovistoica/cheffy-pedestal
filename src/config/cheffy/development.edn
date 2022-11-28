@@ -6,4 +6,7 @@
  :database {:server-type :dev-local
             :system "api.cheffy.ovistoica.com"
             :storage-dir :mem
-            :db-name "development"}}
+            :db-name "development"}
+ :auth {:client-id ""
+        :client-secret ""
+        :user-pool-id ""}}
